@@ -10,22 +10,27 @@ public class StackExercises {
     public static void main(String[] args) {
 
         // TODO: 1 - Create a Stack of Strings called 'stack'
-
+        Stack<String> stack = new Stack<>();
 
         // TODO: 2 - Push 5 elements onto the stack: "Java", "Python", "C++", "JavaScript", "Go"
-
+        stack.push("Java");
+        stack.push("Python");
+        stack.push("C++");
+        stack.push("JavaScript");
+        stack.push("Go");
 
         // TODO: 3 - Peek at the top element without removing it
         //           Print the result (should be "Go")
-
+        System.out.println(stack.peek());
 
         // TODO: 4 - Pop an element from the stack and print it
         //           Then print the stack to see the remaining elements
-
+        System.out.println(stack.pop());
+        System.out.println(stack);
 
         // TODO: 5 - Check if the stack is empty using isEmpty()
         //           Print the result
-
+        System.out.println(stack.isEmpty());
 
         // --- String Reversal ---
         System.out.println("\n--- String Reversal ---");
@@ -33,7 +38,16 @@ public class StackExercises {
         // TODO: 6 - Use a Stack to reverse the string 'original'
         //           Push each character onto a stack, then pop them all to build the reversed string
         //           Print both original and reversed strings
-
+        Stack<String> reversed = new Stack<>();
+        StringBuilder reversedLetters = new StringBuilder();
+        for (int i = 0; i < original.length(); i++) {
+            reversed.push(String.valueOf(original.charAt(i)));
+        }
+        for (int i = 0; i < original.length(); i++) {
+            reversedLetters.append(reversed.pop());
+        }
+        System.out.println(original);
+        System.out.println(reversedLetters);
 
         // --- Balanced Brackets ---
         System.out.println("\n--- Balanced Brackets ---");
@@ -45,6 +59,51 @@ public class StackExercises {
         //           that the top of stack is the matching opening bracket
         //           Test with both 'balanced' and 'unbalanced' strings
         //           Print whether each string is balanced or not
+        // --- Balanced Brackets ---
+        System.out.println("\n--- Balanced Brackets ---");
+
+        // here you can change balanced or unbalanced to text
+        String text = unbalanced;
+
+        Stack<Character> bracketStack = new Stack<>();
+        boolean isBalanced = true;
+
+        for (int index = 0; index < text.length(); index++) {
+            char currentCharacter = text.charAt(index);
+
+            if (currentCharacter == '(' ||
+                    currentCharacter == '{' ||
+                    currentCharacter == '[') {
+
+                bracketStack.push(currentCharacter);
+
+            } else if (currentCharacter == ')' ||
+                    currentCharacter == '}' ||
+                    currentCharacter == ']') {
+
+                if (bracketStack.isEmpty()) {
+                    isBalanced = false;
+                    break;
+                }
+
+                char openingBracket = bracketStack.pop();
+
+                if (
+                        currentCharacter == ')' && openingBracket != '(' ||
+                                currentCharacter == '}' && openingBracket != '{' ||
+                                currentCharacter == ']' && openingBracket != '['
+                ) {
+                    isBalanced = false;
+                    break;
+                }
+            }
+        }
+
+        if (!bracketStack.isEmpty()) {
+            isBalanced = false;
+        }
+
+        System.out.println(text + " -> " + isBalanced);
 
     }
 }
